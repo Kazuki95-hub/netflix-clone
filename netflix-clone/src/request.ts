@@ -1,4 +1,4 @@
-const API_KEY = import.meta.env.TMDB_API_KEY;
+const API_KEY = import.meta.env.VITE_TMDB_API_KEY;
 const BASE_URL = "/discover/tv?api_key=";
 
 export const requests = {
