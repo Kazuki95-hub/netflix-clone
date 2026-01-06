@@ -16,3 +16,12 @@ export type MovieCategory = {
     title: string;
     url: string;
 }
+
+export function getApiKey() {
+    const apiKey = process.env.TMDB_API_KEY;
+
+    if (!apiKey) {
+        throw new Error("TMDB_API_KEY is not set");
+    }
+    return apiKey;
+}
