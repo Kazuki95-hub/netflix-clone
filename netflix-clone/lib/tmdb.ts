@@ -23,5 +23,10 @@ export function getApiKey() {
     if (!apiKey) {
         throw new Error("TMDB_API_KEY is not set");
     }
+
+    const cleanedKey = apiKey.trim();
+    if (!cleanedKey) {
+        throw new Error("TMDB_API_KEY is empty after trimming")
+    }
     return apiKey;
 }
