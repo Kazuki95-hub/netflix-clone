@@ -30,3 +30,38 @@ export function getApiKey() {
     }
     return apiKey;
 }
+
+export function getMovieCategories(): MovieCategory[] {
+    const API_KEY = getApiKey();
+
+    return [
+        {
+            title: "NETFLIX ORIGINALS",
+            url: `${BASE_URL}/discover/tv?api_key=${API_KEY}&with_networks=213&watch_region=JP&language=ja`,
+        },
+        {
+            title: "Trending Movies",
+            url: `${BASE_URL}/trending/all/week?api_key=${API_KEY}&watch_region=JP&language=ja-JP`,
+        },
+        {
+            title: "Action Movies",
+            url: `${BASE_URL}/discover/tv?api_key=${API_KEY}&with_genres=10759&watch_region=JP&language=ja-JP`,
+        },
+        {
+            title: "News Movies",
+            url: `${BASE_URL}/discover/tv?api_key=${API_KEY}&with_genres=10763&watch_region=JP&language=ja-JP`,
+        },
+        {
+            title: "Kids Movies",
+            url: `${BASE_URL}/discover/tv?api_key=${API_KEY}&with_genres=10762&watch_region=JP&language=ja-JP`,
+        },
+        {
+            title: "Romance Movies",
+            url: `${BASE_URL}/discover/tv?api_key=${API_KEY}&with_genres=10749&watch_region=JP&language=ja-JP`,
+        },
+        {
+            title: "Documentaries",
+            url: `${BASE_URL}/discover/tv?api_key=${API_KEY}&with_genres=99&watch_region=JP&language=ja-JP`,
+        },
+    ]
+}
