@@ -65,3 +65,33 @@ export function getMovieCategories(): MovieCategory[] {
         },
     ]
 }
+
+export async function fetchMovies(url: string): Promise<Movie[]> {
+    const response = await fetch(url);
+
+    if (!response.ok) {
+        let errorMessage = `Failed to fetch movies: ${response.statusText} (${response.status})`;
+
+        try {
+            const errorText = await response.text();
+            const errorData = JSON.parse(errorText);
+            if (errorData.status_message) {
+                errorMessage = `TMDB API Error: ${errorData.status_message} (${response.status})`;
+            }
+        } catch {
+            // JSONパースに失敗した場合はデフォルトメッセージを使用
+        }
+
+        throw new Error(errorMessage);
+    }
+
+    const data: TMDBResponse = await response.json();
+    return data.results.filter((movie) => movie.poster_path || movie.backdrop_path)
+        .map((movie) => ({
+            id: String(movie.id),
+            name: movie.name || "",
+            poster_path: movie.poster_path,
+            backdrop_path: movie.backdrop_path,
+            overview: movie.overview || "",
+        }));
+}
