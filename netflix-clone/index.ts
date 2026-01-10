@@ -1,6 +1,6 @@
 import dotenv from "dotenv";
 dotenv.config();
-import { getApiKey, getMovieCategories } from "./lib/tmdb.ts";
+import { fetchMoviesById, getApiKey, getMovieCategories } from "./lib/tmdb.ts";
 import { fetchMovies } from "./lib/tmdb.ts";
 
 // console.log(
@@ -18,6 +18,10 @@ async function main() {
     const movies = await fetchMovies(netflix.url);
     console.log("取得件数:", movies.length);
     console.log("最初の1件:", movies[0]);
+
+    const firstMovieId = movies[0].id;
+    const movieDetail = await fetchMoviesById(firstMovieId);
+    console.log("映画の詳細情報:", movieDetail);
 }
 main().catch((err) => {
     console.error("エラー:", err.message);

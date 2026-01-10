@@ -95,3 +95,26 @@ export async function fetchMovies(url: string): Promise<Movie[]> {
             overview: movie.overview || "",
         }));
 }
+
+export async function fetchMoviesById(movieId: string): Promise<Movie | null> {
+    const API_KEY = getApiKey();
+
+    const response = await fetch(
+        `${BASE_URL}/tv/${movieId}?api_key=${API_KEY}&language=ja-JP`
+    )
+
+    if (!response.ok) {
+        {
+            return null;
+        }
+    }
+
+    const data = await response.json();
+    return {
+        id: String(data.id),
+        name: data.name || "",
+        poster_path: data.poster_path,
+        backdrop_path: data.backdrop_path,
+        overview: data.overview || "",
+    }
+}
