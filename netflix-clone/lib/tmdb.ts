@@ -127,3 +127,12 @@ export async function fetchNetflixOriginals(): Promise<Movie[]> {
     }
     return fetchMovies(category.url);
 }
+
+export async function fetchRandomMovie(): Promise<Movie | null> {
+    const movies = await fetchNetflixOriginals();
+    const moviesWithBackdrop = movies.filter((movie) => movie.backdrop_path);
+    if (moviesWithBackdrop.length === 0) {
+        return null;
+    }
+    return moviesWithBackdrop[Math.floor(Math.random() * moviesWithBackdrop.length)];
+}
