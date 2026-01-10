@@ -118,3 +118,12 @@ export async function fetchMoviesById(movieId: string): Promise<Movie | null> {
         overview: data.overview || "",
     }
 }
+
+export async function fetchNetflixOriginals(): Promise<Movie[]> {
+    const categories = getMovieCategories();
+    const category = categories.find((category) => category.title === "NETFLIX ORIGINALS");
+    if (!category) {
+        throw new Error("NETFLIX ORIGINALS category not found");
+    }
+    return fetchMovies(category.url);
+}
